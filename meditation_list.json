@@ -1,0 +1,61 @@
+{
+  "code": 1,
+  "msg": "success",
+  "data": [
+    {
+      "id": 1,
+      "title": "让生活慢下脚步",
+      "thumbnail": "/storage/default/20251213/ScreenShot_20258f0a96347f3aacdcd6868137683db3d1753218ea.png",
+      "intro": "10分钟冥想引导",
+      "desc": "我总是脚步匆匆地赶路，今天让我们过一次慢生活，体会这个充满生机的春天。",
+      "audio_file": "/storage/default/20251213/让生活慢下脚步.MP369198f5db713508c8104570eb8106ceebc7c123b.mp3",
+      "duration": 10,
+      "status": 1,
+      "sort": 1
+    },
+    {
+      "id": 2,
+      "title": "提升你的内在安全感",
+      "thumbnail": "/storage/default/20251213/ScreenShot_2025048f058a06cce0640ecac127553e0a1135f449df.png",
+      "intro": "10分钟冥想引导",
+      "desc": "你是否在不知不觉中，活得太过严肃？ 紧绷的身体，紧蹙的眉头，匆匆赶路，对身边的美好视而不见？ 今天的冥想跟随木风老师一起慢下来，对一朵花微笑。",
+      "audio_file": "/storage/default/20251213/12月13日.MP3678983f3a62c9ef1b0f05057f3135d5b3757be05.mp3",
+      "duration": 10,
+      "status": 1,
+      "sort": 1
+    },
+    {
+      "id": 3,
+      "title": "我生活的太严肃，忘记了对一朵花微笑",
+      "thumbnail": "/storage/default/20251213/ScreenShot_2025a8e85175f6e5da959eaa110c360ad2aa9bb12069.png",
+      "intro": "10分钟冥想引导",
+      "desc": "你是否在不知不觉中，活得太过严肃？ 紧绷的身体，紧蹙的眉头，匆匆赶路，对身边的美好视而不见？ 今天的冥想跟随木风老师一起慢下来，对一朵花微笑。",
+      "audio_file": "/storage/default/20251213/让生活慢下脚步.MP369198f5db713508c8104570eb8106ceebc7c123b.mp3",
+      "duration": 10,
+      "status": 1,
+      "sort": 1
+    },
+    {
+      "id": 4,
+      "title": "在冥想中遇见真实的自己",
+      "thumbnail": "/storage/default/20251216/ScreenShot_20254f49181fe50afaafbd8b9a7b40467e690eeea61d.png",
+      "intro": "接纳自我",
+      "desc": "开始练习冥想后，我们究竟会有怎样的改变？ 在以前，我不曾坦然面对不够完美的自己，遇见冥想后，我明白，我无需成为更好，世间的一切都是最好的安排。",
+      "audio_file": "/storage/default/20251216/在冥想中遇见真实的自己.MP32203e25069c89d6810de4b3a08a022e6687331af.mp3",
+      "duration": 9,
+      "status": 1,
+      "sort": 1
+    },
+    {
+      "id": 5,
+      "title": "修复亲密关系中的不安全感",
+      "thumbnail": "/storage/default/20251216/ScreenShot_2025bc32f7d34a84d2afffacdf14225da3437d55d13f.png",
+      "intro": "安全感",
+      "desc": "在亲密关系里，如果你常常拥有一种“匮乏感”，不断地想要从对方身上索取，这个冥想练习就是为你准备的。 和真实的自己连接，把关注力重新放到自己身上，你会发现自己在关系中也会活出自信",
+      "audio_file": "/storage/default/20251216/修复亲密关系中的不安全感.MPf0c20dc234cfc04a4edc546d24018f2eef29b076.mp3",
+      "duration": 9,
+      "status": 1,
+      "sort": 1
+    }
+  ]
+}

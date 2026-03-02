@@ -1,0 +1,825 @@
+{
+  "code": 1,
+  "msg": "success",
+  "data": [
+    {
+      "id": 11,
+      "title": "事物",
+      "icon": null,
+      "sort": 1,
+      "status": 1,
+      "audios": [
+        {
+          "id": 73,
+          "title": "幻灯机",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/slide-projector679736de6c837f593f4813e68795b70e6d0d8616.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 84,
+          "title": "吹风机",
+          "icon": "/storage/default/20260130/吹风机bf0137f617a9bcde68ba6dc0826aa8c360ca0d4f.png",
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20251214/吹风机.MP35fb301545dca077e08eca215739f9ea116978372.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 79,
+          "title": "雨刮器",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/windshield-wipec03984b7a71cf20d78a1dba81ed6e9332fd2038c.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 78,
+          "title": "风铃",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/wind-chimes4a51195b8e85dce3c3a40b360ddfd15e60ce17b0.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 77,
+          "title": "洗衣机",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/washing-machine0a4d0ef67c2aaaad8e0c09e1eb963436ad57b85d.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 76,
+          "title": "黑胶唱片效果",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/vinyl-effect4aa591c1580f1f638b9a92574879ff19eb1ccc24.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 75,
+          "title": "打字机",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/typewriter905380fd22d57bbd75544fec3350cd539e035077.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 74,
+          "title": "正在调谐的收音机",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/tuning-radio7c57887ad9753905af44dfd77b3452ba93effc80.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 72,
+          "title": "颂钵",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/singing-bowlfbc8ce2cf836c64c7e49018644303b701d47a5ef.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 71,
+          "title": "纸",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/paperfd1c5ad08ccf65ea57f1b468f604a7e68582615a.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 70,
+          "title": "摩尔斯电码",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/morse-code5bdcf7a26cc3a216daee27f7294e759e3dde7e1a.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 69,
+          "title": "键盘",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/keyboardc7725f0ac0a9007283fcb39d9b4f49b2acf77ed6.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 68,
+          "title": "烘干机",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/dryer0778d7de1958639fce8bf9fa5cc2ca3b77abd17f.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 67,
+          "title": "时钟",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/clock7df25b70280529711bacf8b110df2c144ce46ac3.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 66,
+          "title": "吊扇",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/ceiling-fane9e08cfdc440408605355a90866d9225eace6671.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 65,
+          "title": "气泡",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/bubblesf054acf22c2a0cc5d9909cc895215a75e01d81ae.mp3",
+          "cate_id": 11
+        },
+        {
+          "id": 64,
+          "title": "沸水",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/boiling-water9061206c40e32afd685a6986b82d37fe1280896c.mp3",
+          "cate_id": 11
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "雨",
+      "icon": null,
+      "sort": 2,
+      "status": 1,
+      "audios": [
+        {
+          "id": 19,
+          "title": "雨打窗户",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/rain-on-windowcba08b83ba9925969971df57eff0382f83b057e5.mp3",
+          "cate_id": 5
+        },
+        {
+          "id": 17,
+          "title": "雨打帐篷",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/rain-on-tent62ebb033a44eba0a73f7855e4a00c7d3159d54f8.mp3",
+          "cate_id": 5
+        },
+        {
+          "id": 16,
+          "title": "雨打树叶",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/rain-on-leavesddeff504b17e4a84b3b3bcf506680397bf1bcf1b.mp3",
+          "cate_id": 5
+        },
+        {
+          "id": 13,
+          "title": "暴雨",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/heavy-rain00db1db8d6d7ac35ecba03c35a2f5ed541334516.mp3",
+          "cate_id": 5
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "动物",
+      "icon": null,
+      "sort": 3,
+      "status": 1,
+      "audios": [
+        {
+          "id": 21,
+          "title": "蜂巢",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/beehive70c8c016dca7992d4e9de05745486ef357532fe2.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 22,
+          "title": "鸟",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/birdsa9d694f5687f4f1d9123dc829222641d9d180120.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 32,
+          "title": "鲸鱼",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/whale6c71580b303d85f54e5f64617a563f9da5c38689.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 34,
+          "title": "啄木鸟",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/woodpecker5b96fbc9264cc6fef7e27538df584b47ed72fdd1.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 33,
+          "title": "狼",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/wolf8b31c46f59893918adc08f07fe0e488a9cc4665b.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 31,
+          "title": "羊",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/sheep355a8f74837f718ec55f651939fd5ac6b8c9e184.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 30,
+          "title": "海鸥",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/seagullsd8f132007a4ea2b966a4b320652987116b8c3c3e.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 29,
+          "title": "猫头鹰",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/owl6841a5a98e526935cbd7aa0932da87421732e145.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 28,
+          "title": "马疾驰声",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/horse-gallop9204b59128eb155fbf30b6cf24b55617d67a269c.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 27,
+          "title": "青蛙",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/frog0f1d9c6f4cc024cde43b692ce042dc4a6c4f0d0b.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 26,
+          "title": "狗吠声",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/dog-barking4ac081567f6518120e5c886d7aadcf38aeb43fa4.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 25,
+          "title": "牛",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/cows02a1600b0eb62b631584d2f7cb5766625990f03f.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 24,
+          "title": "鸡",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/chickens35dda033881e0fcbd2a25a246c1de773e22e222b.mp3",
+          "cate_id": 6
+        },
+        {
+          "id": 23,
+          "title": "猫的呼噜声",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/cat-purring8bc03e742f7cec5e62e3948cc97b62872f5920a1.mp3",
+          "cate_id": 6
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "城市",
+      "icon": null,
+      "sort": 4,
+      "status": 1,
+      "audios": [
+        {
+          "id": 41,
+          "title": "交通",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/traffic78c241b437182a2cd5ae5cd1ef63d4aea10a85b6.mp3",
+          "cate_id": 7
+        },
+        {
+          "id": 40,
+          "title": "道路",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/roadfd13ae2f2a0afdf4c9d283a8a01d71fb417a420b.mp3",
+          "cate_id": 7
+        },
+        {
+          "id": 39,
+          "title": "高速公路",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/highwaycb3846b3362357faf4b19d2bdf2c82e2b9095471.mp3",
+          "cate_id": 7
+        },
+        {
+          "id": 38,
+          "title": "烟花",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/fireworkse76f769cf96bbf50987b2bec0d9ee45f23c583dd.mp3",
+          "cate_id": 7
+        },
+        {
+          "id": 37,
+          "title": "人群",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/crowd9e693d35e664d2912940242ff182c920872ca6ee.mp3",
+          "cate_id": 7
+        },
+        {
+          "id": 36,
+          "title": "繁忙的街道",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/busy-streetbaf380e05e0c5036d0546414e77049910749e0da.mp3",
+          "cate_id": 7
+        },
+        {
+          "id": 35,
+          "title": "救护车警笛",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/ambulance-siren9a0088806fd6a3126bad10e8b0b634622b5d4e71.mp3",
+          "cate_id": 7
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "场所",
+      "icon": null,
+      "sort": 6,
+      "status": 1,
+      "audios": [
+        {
+          "id": 52,
+          "title": "办公室",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/office22dc89483d5f7eeb2a7d23203c5d4df1342d40bb.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 57,
+          "title": "水下",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/underwater35bcd53ca1ef007783c19ee0d4dc2ae784a46c98.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 56,
+          "title": "寺庙",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/temple74731061308f9573ed74aae3a434dff3af16289e.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 55,
+          "title": "超市",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/supermarket362de5cddefe7014094feadf3f7481f3b17f382b.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 54,
+          "title": "地铁站",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/subway-station5f608b769b659d0ec3c9b476e6450862f8030247.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 53,
+          "title": "餐厅",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/restaurant250defe430fe4b4c1c3c7dea0dcfc1abfffc1748.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 51,
+          "title": "夜晚的村庄",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/night-villagee3ea15711c38988c04c8c20e7b8aa496b75e31ef.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 50,
+          "title": "图书馆",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/library9cd619b316516cc749e3c17e874cc8f9c72685ae.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 49,
+          "title": "洗衣房",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/laundry-room7aeca8a1a3e0af6800f984a779bf9be8ea902939.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 48,
+          "title": "实验室",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/laboratory0f915affecfa2795d77278b8b9d01dfa913524cc.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 47,
+          "title": "拥挤的酒吧",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/crowded-bar5d8056d8556bf0f5fb8ccdf60648c1217a738bb9.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 46,
+          "title": "建筑工地",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/construction-si3b969f6781f80581b8d62b164ccc4602b01cd894.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 45,
+          "title": "教堂",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/church1b308569f5438527603eed2d310130533e351c6e.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 44,
+          "title": "旋转木马",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/carousele600bd750a983c4201476919a22ecb36ab374f8b.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 43,
+          "title": "咖啡馆",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/cafec2bea9560d967a889b9222510d2d31af780cb395.mp3",
+          "cate_id": 9
+        },
+        {
+          "id": 42,
+          "title": "机场",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/airport780305bf2b132f919ed2db29a1785c676525652c.mp3",
+          "cate_id": 9
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "交通",
+      "icon": null,
+      "sort": 7,
+      "status": 1,
+      "audios": [
+        {
+          "id": 62,
+          "title": "潜艇",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/submarine841b47360efb5974eb1a0a4effbed97b7e3daed2.mp3",
+          "cate_id": 10
+        },
+        {
+          "id": 61,
+          "title": "帆船",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/sailboat63097e2331061b6787719c309ff03417e43b8e8f.mp3",
+          "cate_id": 10
+        },
+        {
+          "id": 60,
+          "title": "划艇",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/rowing-boatf5761949d7ba0e081645da504389a66dcf73989a.mp3",
+          "cate_id": 10
+        },
+        {
+          "id": 59,
+          "title": "火车内",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/inside-a-train22707aa6854c1f6e0fcb3b1db37a64ab7573a05d.mp3",
+          "cate_id": 10
+        },
+        {
+          "id": 58,
+          "title": "飞机",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/airplane5f3b02e970a3fbfa72bee6dd9ed43c2620334a5f.mp3",
+          "cate_id": 10
+        },
+        {
+          "id": 63,
+          "title": "火车",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/train930180029bef12047b2ed3434eead99699e76462.mp3",
+          "cate_id": 10
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "自然",
+      "icon": null,
+      "sort": 8,
+      "status": 1,
+      "audios": [
+        {
+          "id": 12,
+          "title": "林间风声",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/wind-in-treesfc5249a770af7d88bfd42d0f5d25f4fda166ecb4.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 20,
+          "title": "雷声",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/thunder6c7fa6aefb5d33bc5ff05fc450330cedd6503ac7.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 18,
+          "title": "雨打雨伞",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/rain-on-umbrelle4dd6e5a788365b4bd87eef2fedc7036496326c0.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 15,
+          "title": "雨打汽车顶棚",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/rain-on-car-roof7c0b3d25d3747ec3539cc988ab974577e6bd1d5.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 14,
+          "title": "小雨",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/light-rain9036b819ed2bac154dfc209eb194f1c5c78034fc.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 10,
+          "title": "海浪",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/wavesad86499b717bca4af9db1a126c3cac3b43857b3a.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 9,
+          "title": "瀑布",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/waterfall57b8130a76aeaf91a01af806cd75d2cda084333c.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 8,
+          "title": "落叶上行走",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/walk-on-leavesb1d3bd2b2e746b2b21c0d23a433fce27cc18fd08.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 7,
+          "title": "砾石上行走",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/walk-on-gravel0e9969f64a946bb954ed6066cf0ec6b5007ff3ea.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 6,
+          "title": "雪中行走",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/walk-in-snow20fb3347deaf5755911e5e9028452d18ccb8924b.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 5,
+          "title": "河流",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/river60f590367f5669e581beb0e059c2c38d4f971bc6.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 4,
+          "title": "丛林",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/jungleffdd641fde42b1671f67e814421485e8e52da69e.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 3,
+          "title": "呼啸的风",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/howling-wind1041d62536b1b1a11dd3e22bd19e4020b3195749.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 2,
+          "title": "水珠",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/droplets8a6356fafb1e4e15acb29e20ec58ab4be35c9860.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 1,
+          "title": "篝火",
+          "icon": null,
+          "sort": 3,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/campfire47ac1b35c4876b1db81eca35a4c6ac700b83edac.mp3",
+          "cate_id": 4
+        },
+        {
+          "id": 11,
+          "title": "风",
+          "icon": null,
+          "sort": 100,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/wind30c7c5244f9129b2a7b84f439357464c1b55dfd4.mp3",
+          "cate_id": 4
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "白噪音",
+      "icon": null,
+      "sort": 9,
+      "status": 1,
+      "audios": [
+        {
+          "id": 82,
+          "title": "白色噪音",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/white-noise1013c93ac961b9450c5eaf790517e403318369c3.wav",
+          "cate_id": 12
+        },
+        {
+          "id": 81,
+          "title": "粉色噪音",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/pink-noise4eae50b774366b874334fd9b85cd66d30a17d2dd.wav",
+          "cate_id": 12
+        },
+        {
+          "id": 80,
+          "title": "棕色噪音",
+          "icon": null,
+          "sort": 1,
+          "status": 1,
+          "audio_file": "/storage/default/20250822/brown-noiseaa383f0b98b3d91a79fa26b27140ea91965538bb.wav",
+          "cate_id": 12
+        }
+      ]
+    }
+  ]
+}
