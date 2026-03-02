@@ -12,25 +12,53 @@ class MeritProvider extends ChangeNotifier {
 
   final StorageService _storage;
 
-  static const String _keyMeritCount = 'merit_count';
+  static const String _keyTotalMeritCount = 'merit_count'; // 总功德数
+  static const String _keySessionCount = 'session_count'; // 本次启动点击次数
 
-  int _count = 0;
-  int get count => _count;
+  int _totalCount = 0; // 总功德数（持久化）
+  int _sessionCount = 0; // 本次启动点击次数（临时）
+
+  // 总功德数 getter
+  int get totalCount => _totalCount;
+  
+  // 本次启动点击次数 getter
+  int get sessionCount => _sessionCount;
 
   void _load() {
-    _count = _storage.getInt(_keyMeritCount) ?? 0;
+    // 加载总功德数
+    _totalCount = _storage.getInt(_keyTotalMeritCount) ?? 0;
+    // 本次启动次数初始化为0
+    _sessionCount = 0;
     notifyListeners();
   }
 
   Future<void> increment() async {
-    _count++;
+    // 增加总功德数
+    _totalCount++;
+    // 增加本次启动点击次数
+    _sessionCount++;
+    
     notifyListeners();
-    await _storage.setInt(_keyMeritCount, _count);
+    
+    // 只持久化总功德数
+    await _storage.setInt(_keyTotalMeritCount, _totalCount);
   }
 
   Future<void> reset() async {
-    _count = 0;
+    // 重置总功德数
+    _totalCount = 0;
+    // 重置本次启动点击次数
+    _sessionCount = 0;
+    
     notifyListeners();
-    await _storage.setInt(_keyMeritCount, 0);
+    
+    // 持久化重置
+    await _storage.setInt(_keyTotalMeritCount, 0);
+  }
+
+  // 仅重置本次启动次数（不清除总功德）
+  void resetSessionCount() {
+    _sessionCount = 0;
+    notifyListeners();
   }
 }

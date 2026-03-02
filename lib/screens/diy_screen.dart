@@ -47,7 +47,7 @@ class _DiyScreenState extends State<DiyScreen> {
                     Center(
                       child: Text(
                         '选择多个音频，更改音频中间的音量键可配置自己的组合音效',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: Colors.black54,
                             ),
                         textAlign: TextAlign.center,

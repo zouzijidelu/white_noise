@@ -17,7 +17,7 @@ class AppBottomNavBar extends StatelessWidget {
       currentIndex: currentIndex,
       onTap: onTap,
       type: BottomNavigationBarType.fixed,
-      items: const [
+      items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.nightlight_round),
           label: '睡眠',
@@ -31,7 +31,11 @@ class AppBottomNavBar extends StatelessWidget {
           label: '冥想',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.pets),
+          icon: Image.asset(
+            'assets/images/muyu_icon.png',  // 你需要准备这个图片文件
+            width: 24,
+            height: 24,
+          ),
           label: '木鱼',
         ),
       ],
