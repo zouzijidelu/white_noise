@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:white_noise/providers/meditation_provider.dart';
 
 import 'providers/diy_provider.dart';
 import 'providers/merit_provider.dart';
@@ -30,6 +31,11 @@ void main() async {
     audioService: audioService,
     audioCacheService: audioCacheService,
   );
+  final meditationProvider = MeditationProvider(
+    apiService: apiService,
+    audioService: audioService,
+    audioCacheService: audioCacheService,
+  );
   final routerDelegate = AppRouterDelegate(navigationProvider: navigationProvider);
   final routeInformationParser = AppRouteInformationParser();
 
@@ -40,6 +46,7 @@ void main() async {
     meritProvider: meritProvider,
     sleepProvider: sleepProvider,
     diyProvider: diyProvider,
+    meditationProvider: meditationProvider,
     apiService: apiService,
     audioService: audioService,
   ));
@@ -54,6 +61,7 @@ class WhiteNoiseApp extends StatelessWidget {
     required this.meritProvider,
     required this.sleepProvider,
     required this.diyProvider,
+    required this.meditationProvider,
     required this.apiService,
     required this.audioService,
   });
@@ -64,6 +72,7 @@ class WhiteNoiseApp extends StatelessWidget {
   final MeritProvider meritProvider;
   final SleepProvider sleepProvider;
   final DiyProvider diyProvider;
+  final MeditationProvider meditationProvider;
   final ApiService apiService;
   final AudioService audioService;
 
@@ -75,6 +84,7 @@ class WhiteNoiseApp extends StatelessWidget {
         ChangeNotifierProvider<MeritProvider>.value(value: meritProvider),
         ChangeNotifierProvider<SleepProvider>.value(value: sleepProvider),
         ChangeNotifierProvider<DiyProvider>.value(value: diyProvider),
+        ChangeNotifierProvider<MeditationProvider>.value(value: meditationProvider),
         Provider<ApiService>.value(value: apiService),
         Provider<AudioService>.value(value: audioService),
       ],

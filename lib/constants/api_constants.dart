@@ -14,6 +14,9 @@ class ApiConstants {
   /// 冥想列表
   static const String meditationList = '/jty/Meditation/list';
 
+  /// 冥想详情
+  static const String meditationDetail = '/jty/Meditation/detail';
+
   /// 将相对路径转为完整资源 URL（音频/图片等）
   static String resourceUrl(String path) {
     if (path.isEmpty) return path;

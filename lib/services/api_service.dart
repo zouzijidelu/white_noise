@@ -155,6 +155,16 @@ class ApiService {
       fromJsonT: (d) => d is List ? d : <dynamic>[],
     );
   }
+
+  /// 冥想详情 GET /jty/Meditation/detail
+  /// 详情参数：id
+  /// 详情返回：{ id, title, thumbnail, intro, desc, audio_file, duration, status, sort }
+  Future<ApiResponse<dynamic>> getMeditationDetail(int id) async {
+    return get<dynamic>(
+      ApiConstants.meditationDetail,
+      queryParameters: {'id': id.toString()},
+    );
+  }
 }
 
 /// 请求异常
