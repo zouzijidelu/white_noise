@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
-
 import '../constants/api_constants.dart';
 import '../services/api_service.dart';
-import '../services/audio_cache_service.dart';
 import '../services/audio_service.dart';
 
 /// 冥想课程模型
@@ -89,14 +87,11 @@ class MeditationProvider extends ChangeNotifier {
   MeditationProvider({
     required ApiService apiService,
     required AudioService audioService,
-    required AudioCacheService audioCacheService,
   }) : _api = apiService,
-       _audio = audioService,
-       _cache = audioCacheService;
+       _audio = audioService;
 
   final ApiService _api;
   final AudioService _audio;
-  final AudioCacheService _cache;
 
   // 冥想列表相关状态
   List<MeditationCourse> _meditationList = [];
@@ -115,11 +110,16 @@ class MeditationProvider extends ChangeNotifier {
 
   // 播放状态
   bool _isPlaying = false;
-
+  
   bool get isPlaying => _isPlaying;
+  
+  // 跟踪实际正在播放的课程 ID（用于判断是否需要停止）
+  int? _playingCourseId;
+  
+  int? get playingCourseId => _playingCourseId;
 
   bool _preparing = false;
-
+  
   bool get preparing => _preparing;
 
   // 加载状态
@@ -180,7 +180,7 @@ class MeditationProvider extends ChangeNotifier {
           res.data as Map<String, dynamic>,
         );
 
-        // 同时更新选中的课程
+        // 同时更新选中的课程（但不停止播放）
         final course = _meditationList.firstWhere(
           (c) => c.id == courseId,
           orElse: () => _meditationDetail!,
@@ -198,28 +198,47 @@ class MeditationProvider extends ChangeNotifier {
     }
   }
 
-  /// 选择冥想课程
+  /// 选择冥想课程（仅更新选中状态）
   void selectCourse(MeditationCourse course) {
-    if (_selectedCourse?.id == course.id) return;
     _selectedCourse = course;
-    _meditationDetail = null; // 清除之前的详情
     notifyListeners();
+  }
+
+  /// 播放指定课程（会先停止当前播放）
+  Future<void> playCourse(MeditationCourse course) async {
+    // 如果切换了课程，先停止当前播放
+    if (_playingCourseId != null && _playingCourseId != course.id) {
+      await stop();
+    }
+    
+    _selectedCourse = course;
+    notifyListeners();
+    
+    await play();
   }
 
   /// 播放冥想音频
   Future<void> play() async {
-    if (_selectedCourse == null || _isPlaying) return;
+    if (_selectedCourse == null) return;
+
+    // 如果当前课程已经在播放中，直接返回
+    if (_isPlaying && _playingCourseId == _selectedCourse!.id) return;
 
     _preparing = true;
     notifyListeners();
 
     try {
       final url = _selectedCourse!.fullAudioUrl;
-      final cachedPath =
-          await _cache.getCachedPath(url) ?? await _cache.downloadToCache(url);
-
-      await _audio.play(cachedPath);
-      _isPlaying = true;
+      
+      // 如果是同一个课程只是暂停了，则恢复播放
+      if (_playingCourseId == _selectedCourse!.id && !_isPlaying) {
+        await resume();
+      } else {
+        // 否则从头播放
+        await _audio.play(url, isAsset: false);
+        _isPlaying = true;
+        _playingCourseId = _selectedCourse!.id;
+      }
     } catch (e, st) {
       _error = networkErrorMessage(e);
       debugPrint('MeditationProvider play: $e $st');
@@ -229,19 +248,37 @@ class MeditationProvider extends ChangeNotifier {
     }
   }
 
+  /// 暂停播放
+  Future<void> pause() async {
+    await _audio.pause();
+    _isPlaying = false;
+    notifyListeners();
+  }
+
+  Future<void> resume() async {
+    await _audio.resume();
+    _isPlaying = true;
+    notifyListeners();
+  }
+
   /// 停止播放
   Future<void> stop() async {
     await _audio.stop();
     _isPlaying = false;
+    _playingCourseId = null; // 清除正在播放的课程 ID
     notifyListeners();
   }
 
   /// 暂停/继续播放
   Future<void> togglePlay() async {
+    if (_selectedCourse == null) return;
+
+    // 如果正在播放，则暂停
     if (_isPlaying) {
-      await stop();
+      await pause();
     } else {
-      await play();
+      // 已暂停，恢复播放
+      await resume();
     }
   }
 

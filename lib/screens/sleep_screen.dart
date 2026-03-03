@@ -16,7 +16,9 @@ class _SleepScreenState extends State<SleepScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<SleepProvider>().loadData();
+      if (mounted) {
+        context.read<SleepProvider>().loadData();
+      }
     });
   }
 

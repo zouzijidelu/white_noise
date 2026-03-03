@@ -18,7 +18,9 @@ class _MeditationDetailScreenState extends State<MeditationDetailScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<MeditationProvider>().loadMeditationDetail(widget.courseId);
+      if (mounted) {
+        context.read<MeditationProvider>().loadMeditationDetail(widget.courseId);
+      }
     });
   }
 
@@ -36,6 +38,12 @@ class _MeditationDetailScreenState extends State<MeditationDetailScreen> {
       ),
       body: Consumer<MeditationProvider>(
         builder: (context, meditationProvider, child) {
+          debugPrint('=== MeditationDetailScreen build ===');
+          debugPrint('loadingDetail: ${meditationProvider.loadingDetail}');
+          debugPrint('meditationDetail: ${meditationProvider.meditationDetail?.id}');
+          debugPrint('selectedCourse.id: ${meditationProvider.selectedCourse?.id}');
+          debugPrint('isPlaying: ${meditationProvider.isPlaying}');
+          
           if (meditationProvider.loadingDetail) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -176,31 +184,32 @@ class _MeditationDetailScreenState extends State<MeditationDetailScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: meditationProvider.preparing
-                        ? null
-                        : () {
-                            meditationProvider.selectCourse(detail);
-                            meditationProvider.play();
+                    onPressed: () {
+                            // 判断当前是否正在播放当前页面的课程
+                            final isPlayingCurrent = meditationProvider.isPlaying &&
+                                meditationProvider.playingCourseId == detail.id;
+                            
+                            if (isPlayingCurrent) {
+                              // 正在播放当前课程，切换到暂停
+                              meditationProvider.togglePlay();
+                            } else {
+                              // 没有播放当前课程（id 不同或没播放），先选中再播放
+                              meditationProvider.selectCourse(detail);
+                              meditationProvider.play();
+                            }
                           },
-                    icon: meditationProvider.preparing
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          )
-                        : Icon(
-                            meditationProvider.isPlaying
+                    icon: Icon(
+                            (meditationProvider.isPlaying &&
+                            meditationProvider.playingCourseId == detail.id)
                                 ? Icons.pause
                                 : Icons.play_arrow,
                             color: Colors.white,
                           ),
                     label: Text(
-                      meditationProvider.preparing
-                          ? '加载中…'
-                          : (meditationProvider.isPlaying ? '暂停' : '播放'),
+                      (meditationProvider.isPlaying &&
+                              meditationProvider.playingCourseId == detail.id
+                          ? '暂停'
+                          : '播放'),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurple,

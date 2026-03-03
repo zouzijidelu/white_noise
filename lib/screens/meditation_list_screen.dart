@@ -16,9 +16,10 @@ class _MeditationListScreenState extends State<MeditationListScreen> {
   @override
   void initState() {
     super.initState();
-    // 页面初始化时加载冥想列表
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<MeditationProvider>().loadMeditationList();
+      if (mounted) {
+        context.read<MeditationProvider>().loadMeditationList();
+      }
     });
   }
 
@@ -122,7 +123,6 @@ class _MeditationListScreenState extends State<MeditationListScreen> {
                             meditationProvider.selectedCourse?.id == course.id,
                         preparing: meditationProvider.preparing,
                         onTap: () => _onCourseTap(meditationProvider, course),
-                        onPlay: () => _onPlayTap(meditationProvider, course),
                       );
                     }, childCount: courses.length),
                   ),
@@ -144,15 +144,6 @@ class _MeditationListScreenState extends State<MeditationListScreen> {
       ),
     );
   }
-
-  void _onPlayTap(MeditationProvider provider, MeditationCourse course) {
-    if (provider.selectedCourse?.id == course.id) {
-      provider.togglePlay();
-    } else {
-      provider.selectCourse(course);
-      provider.play();
-    }
-  }
 }
 
 /// 冥想课程卡片组件
@@ -163,7 +154,6 @@ class _MeditationCourseCard extends StatelessWidget {
     required this.isPlaying,
     required this.preparing,
     required this.onTap,
-    required this.onPlay,
   });
 
   final MeditationCourse course;
@@ -171,7 +161,6 @@ class _MeditationCourseCard extends StatelessWidget {
   final bool isPlaying;
   final bool preparing;
   final VoidCallback onTap;
-  final VoidCallback onPlay;
 
   @override
   Widget build(BuildContext context) {
