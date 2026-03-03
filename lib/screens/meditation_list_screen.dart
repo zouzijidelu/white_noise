@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:white_noise/constants/api_constants.dart';
 
 import '../providers/meditation_provider.dart';
+import 'meditation_detail_screen.dart';
 
 /// 放松冥想页：冥想引导课程列表
-class MeditationScreen extends StatefulWidget {
-  const MeditationScreen({super.key});
+class MeditationListScreen extends StatefulWidget {
+  const MeditationListScreen({super.key});
 
   @override
-  State<MeditationScreen> createState() => _MeditationScreenState();
+  State<MeditationListScreen> createState() => _MeditationListScreenState();
 }
 
-class _MeditationScreenState extends State<MeditationScreen> {
+class _MeditationListScreenState extends State<MeditationListScreen> {
   @override
   void initState() {
     super.initState();
@@ -137,8 +137,12 @@ class _MeditationScreenState extends State<MeditationScreen> {
   }
 
   void _onCourseTap(MeditationProvider provider, MeditationCourse course) {
-    provider.selectCourse(course);
-    provider.loadMeditationDetail(course.id);
+    // 跳转到详情页，传入课程 ID
+    Navigator.of(context).push(
+      MaterialPageRoute<MeditationDetailScreen>(
+        builder: (_) => MeditationDetailScreen(courseId: course.id),
+      ),
+    );
   }
 
   void _onPlayTap(MeditationProvider provider, MeditationCourse course) {
@@ -207,7 +211,7 @@ class _MeditationCourseCard extends StatelessWidget {
                         child: CircularProgressIndicator(
                           value: loadingProgress.expectedTotalBytes != null
                               ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
+                                    loadingProgress.expectedTotalBytes!
                               : null,
                           strokeWidth: 2,
                           color: Colors.white,

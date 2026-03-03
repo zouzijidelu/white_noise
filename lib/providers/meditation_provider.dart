@@ -30,6 +30,7 @@ class MeditationCourse {
   final int sort;
 
   String get fullThumbnailUrl => ApiConstants.resourceUrl(thumbnail);
+
   String get fullAudioUrl => ApiConstants.resourceUrl(audioFile);
 
   factory MeditationCourse.fromJson(Map<String, dynamic> json) {
@@ -89,9 +90,9 @@ class MeditationProvider extends ChangeNotifier {
     required ApiService apiService,
     required AudioService audioService,
     required AudioCacheService audioCacheService,
-  })  : _api = apiService,
-        _audio = audioService,
-        _cache = audioCacheService;
+  }) : _api = apiService,
+       _audio = audioService,
+       _cache = audioCacheService;
 
   final ApiService _api;
   final AudioService _audio;
@@ -99,32 +100,40 @@ class MeditationProvider extends ChangeNotifier {
 
   // 冥想列表相关状态
   List<MeditationCourse> _meditationList = [];
+
   List<MeditationCourse> get meditationList => _meditationList;
 
   // 当前选中的冥想课程
   MeditationCourse? _selectedCourse;
+
   MeditationCourse? get selectedCourse => _selectedCourse;
 
   // 冥想详情
   MeditationDetail? _meditationDetail;
+
   MeditationDetail? get meditationDetail => _meditationDetail;
 
   // 播放状态
   bool _isPlaying = false;
+
   bool get isPlaying => _isPlaying;
 
   bool _preparing = false;
+
   bool get preparing => _preparing;
 
   // 加载状态
   bool _loadingList = false;
+
   bool get loadingList => _loadingList;
 
   bool _loadingDetail = false;
+
   bool get loadingDetail => _loadingDetail;
 
   // 错误信息
   String? _error;
+
   String? get error => _error;
 
   /// 加载冥想列表
@@ -137,10 +146,14 @@ class MeditationProvider extends ChangeNotifier {
     try {
       final res = await _api.getMeditationList();
       if (res.isSuccess && res.data != null) {
-        _meditationList = res.data!
-            .map((item) => MeditationCourse.fromJson(item as Map<String, dynamic>))
-            .toList()
-            ..sort((a, b) => a.sort.compareTo(b.sort));
+        _meditationList =
+            res.data!
+                .map(
+                  (item) =>
+                      MeditationCourse.fromJson(item as Map<String, dynamic>),
+                )
+                .toList()
+              ..sort((a, b) => a.sort.compareTo(b.sort));
       } else {
         _error = res.msg;
       }
@@ -163,8 +176,10 @@ class MeditationProvider extends ChangeNotifier {
     try {
       final res = await _api.getMeditationDetail(courseId);
       if (res.isSuccess && res.data != null) {
-        _meditationDetail = MeditationDetail.fromJson(res.data as Map<String, dynamic>);
-        
+        _meditationDetail = MeditationDetail.fromJson(
+          res.data as Map<String, dynamic>,
+        );
+
         // 同时更新选中的课程
         final course = _meditationList.firstWhere(
           (c) => c.id == courseId,
@@ -194,14 +209,15 @@ class MeditationProvider extends ChangeNotifier {
   /// 播放冥想音频
   Future<void> play() async {
     if (_selectedCourse == null || _isPlaying) return;
-    
+
     _preparing = true;
     notifyListeners();
 
     try {
       final url = _selectedCourse!.fullAudioUrl;
-      final cachedPath = await _cache.getCachedPath(url) ?? await _cache.downloadToCache(url);
-      
+      final cachedPath =
+          await _cache.getCachedPath(url) ?? await _cache.downloadToCache(url);
+
       await _audio.play(cachedPath);
       _isPlaying = true;
     } catch (e, st) {
@@ -257,10 +273,10 @@ String networkErrorMessage(Object e, [String fallback = '请求失败，请重�
     return e.message ?? fallback;
   }
   final msg = e.toString().toLowerCase();
-  if (msg.contains('socket') || 
-      msg.contains('host lookup') || 
-      msg.contains('nodename') || 
-      msg.contains('servname') || 
+  if (msg.contains('socket') ||
+      msg.contains('host lookup') ||
+      msg.contains('nodename') ||
+      msg.contains('servname') ||
       msg.contains('connection')) {
     return '网络异常，请检查网络连接后重试';
   }
@@ -272,16 +288,13 @@ String networkErrorMessage(Object e, [String fallback = '请求失败，请重�
 
 /// API异常类
 class ApiException implements Exception {
-  ApiException({
-    this.statusCode,
-    this.message,
-    this.body,
-  });
+  ApiException({this.statusCode, this.message, this.body});
 
   final int? statusCode;
   final String? message;
   final String? body;
 
   @override
-  String toString() => 'ApiException: $message (statusCode: $statusCode, body: $body)';
+  String toString() =>
+      'ApiException: $message (statusCode: $statusCode, body: $body)';
 }
