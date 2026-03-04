@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:white_noise/constants/api_constants.dart';
 
 import '../providers/meditation_provider.dart';
+import 'meditation_detail_screen.dart';
 
 /// 放松冥想页：冥想引导课程列表
-class MeditationScreen extends StatefulWidget {
-  const MeditationScreen({super.key});
+class MeditationListScreen extends StatefulWidget {
+  const MeditationListScreen({super.key});
 
   @override
-  State<MeditationScreen> createState() => _MeditationScreenState();
+  State<MeditationListScreen> createState() => _MeditationListScreenState();
 }
 
-class _MeditationScreenState extends State<MeditationScreen> {
+class _MeditationListScreenState extends State<MeditationListScreen> {
   @override
   void initState() {
     super.initState();
-    // 页面初始化时加载冥想列表
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<MeditationProvider>().loadMeditationList();
+      if (mounted) {
+        context.read<MeditationProvider>().loadMeditationList();
+      }
     });
   }
 
@@ -122,7 +123,6 @@ class _MeditationScreenState extends State<MeditationScreen> {
                             meditationProvider.selectedCourse?.id == course.id,
                         preparing: meditationProvider.preparing,
                         onTap: () => _onCourseTap(meditationProvider, course),
-                        onPlay: () => _onPlayTap(meditationProvider, course),
                       );
                     }, childCount: courses.length),
                   ),
@@ -137,17 +137,12 @@ class _MeditationScreenState extends State<MeditationScreen> {
   }
 
   void _onCourseTap(MeditationProvider provider, MeditationCourse course) {
-    provider.selectCourse(course);
-    provider.loadMeditationDetail(course.id);
-  }
-
-  void _onPlayTap(MeditationProvider provider, MeditationCourse course) {
-    if (provider.selectedCourse?.id == course.id) {
-      provider.togglePlay();
-    } else {
-      provider.selectCourse(course);
-      provider.play();
-    }
+    // 跳转到详情页，传入课程 ID
+    Navigator.of(context).push(
+      MaterialPageRoute<MeditationDetailScreen>(
+        builder: (_) => MeditationDetailScreen(courseId: course.id),
+      ),
+    );
   }
 }
 
@@ -159,7 +154,6 @@ class _MeditationCourseCard extends StatelessWidget {
     required this.isPlaying,
     required this.preparing,
     required this.onTap,
-    required this.onPlay,
   });
 
   final MeditationCourse course;
@@ -167,7 +161,6 @@ class _MeditationCourseCard extends StatelessWidget {
   final bool isPlaying;
   final bool preparing;
   final VoidCallback onTap;
-  final VoidCallback onPlay;
 
   @override
   Widget build(BuildContext context) {
@@ -207,7 +200,7 @@ class _MeditationCourseCard extends StatelessWidget {
                         child: CircularProgressIndicator(
                           value: loadingProgress.expectedTotalBytes != null
                               ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
+                                    loadingProgress.expectedTotalBytes!
                               : null,
                           strokeWidth: 2,
                           color: Colors.white,

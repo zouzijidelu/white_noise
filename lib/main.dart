@@ -34,8 +34,8 @@ void main() async {
   final meditationProvider = MeditationProvider(
     apiService: apiService,
     audioService: audioService,
-    audioCacheService: audioCacheService,
   );
+
   final routerDelegate = AppRouterDelegate(navigationProvider: navigationProvider);
   final routeInformationParser = AppRouteInformationParser();
 

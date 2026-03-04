@@ -14,7 +14,7 @@ class NavigationProvider extends ChangeNotifier {
         return 0;
       case AppRoutePath.diy:
         return 1;
-      case AppRoutePath.meditation:
+      case AppRoutePath.meditationList:
         return 2;
       case AppRoutePath.woodenFish:
         return 3;

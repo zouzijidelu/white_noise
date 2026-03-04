@@ -2,10 +2,13 @@
 enum AppRoutePath {
   /// 定时睡眠
   sleep,
+
   /// DIY 白噪音
   diy,
-  /// 放松冥想
-  meditation,
+
+  /// 冥想列表
+  meditationList,
+
   /// 功德（木鱼）
   woodenFish,
 }
@@ -17,8 +20,8 @@ extension AppRoutePathExtension on AppRoutePath {
         return '/sleep';
       case AppRoutePath.diy:
         return '/diy';
-      case AppRoutePath.meditation:
-        return '/meditation';
+      case AppRoutePath.meditationList:
+        return '/meditationList';
       case AppRoutePath.woodenFish:
         return '/wooden_fish';
     }
@@ -30,8 +33,8 @@ extension AppRoutePathExtension on AppRoutePath {
         return AppRoutePath.sleep;
       case '/diy':
         return AppRoutePath.diy;
-      case '/meditation':
-        return AppRoutePath.meditation;
+      case '/meditationList':
+        return AppRoutePath.meditationList;
       case '/wooden_fish':
         return AppRoutePath.woodenFish;
       default:

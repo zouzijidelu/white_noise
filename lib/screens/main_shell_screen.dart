@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../routes/app_route_path.dart';
 import '../widgets/app_bottom_nav_bar.dart';
 import 'diy_screen.dart';
-import 'meditation_screen.dart';
+import 'meditation_list_screen.dart';
 import 'sleep_screen.dart';
 import 'wooden_fish_screen.dart';
 
@@ -26,7 +26,7 @@ class MainShellScreen extends StatelessWidget {
         children: const [
           SleepScreen(),
           DiyScreen(),
-          MeditationScreen(),
+          MeditationListScreen(),
           WoodenFishScreen(),
         ],
       ),
