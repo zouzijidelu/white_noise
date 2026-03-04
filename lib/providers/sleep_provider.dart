@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 
 import '../constants/api_constants.dart';
@@ -30,6 +32,12 @@ class SleepProvider extends ChangeNotifier {
   /// 定时时长（分钟）
   int _timerMinutes = 15;
   int get timerMinutes => _timerMinutes;
+
+  /// 倒计时剩余秒数（0 表示未开始或已结束）
+  int _remainingSeconds = 0;
+  int get remainingSeconds => _remainingSeconds;
+
+  Timer? _countdownTimer;
 
   /// 当前播放中的音效 id
   int? _playingAudioId;
@@ -93,23 +101,57 @@ class SleepProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// 设置定时时长；若当前已有倒计时在进行，则按新时长重新倒计时
   void setTimerMinutes(int minutes) {
-    if (_timerMinutes == minutes) return;
-    _timerMinutes = minutes.clamp(1, 120);
+    final next = minutes.clamp(1, 120);
+    if (_timerMinutes == next) return;
+    _timerMinutes = next;
+    if (_remainingSeconds > 0) {
+      _remainingSeconds = _timerMinutes * 60;
+    }
     notifyListeners();
   }
 
+  void _startCountdownTimer() {
+    _countdownTimer?.cancel();
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) => _tickCountdown());
+  }
+
+  void _tickCountdown() {
+    if (_remainingSeconds <= 0) return;
+    _remainingSeconds--;
+    if (_remainingSeconds <= 0) {
+      _stopCountdownTimer();
+      _audio.stop();
+      _playingAudioId = null;
+    }
+    notifyListeners();
+  }
+
+  void _stopCountdownTimer() {
+    _countdownTimer?.cancel();
+    _countdownTimer = null;
+  }
+
   /// 播放或停止指定音效（先缓存再播放，已缓存则直接播）
+  /// 点击播放开启倒计时；手动暂停只停播放，倒计时继续；切换音频倒计时继续
   Future<void> toggleAudio(Map<String, dynamic> audio) async {
     final id = audio['id'] as int?;
     final path = audio['audio_file'] as String?;
     if (id == null || path == null || path.isEmpty) return;
 
     if (_playingAudioId == id) {
+      // 手动暂停：只停止播放，倒计时继续
       await _audio.stop();
       _playingAudioId = null;
       notifyListeners();
       return;
+    }
+
+    // 开始播放或切换音频：若尚未开始倒计时则开启，否则倒计时继续
+    if (_remainingSeconds <= 0) {
+      _remainingSeconds = _timerMinutes * 60;
+      _startCountdownTimer();
     }
 
     final url = ApiConstants.resourceUrl(path);
@@ -136,6 +178,8 @@ class SleepProvider extends ChangeNotifier {
   }
 
   void stopPlayback() {
+    _stopCountdownTimer();
+    _remainingSeconds = 0;
     _audio.stop();
     _playingAudioId = null;
     notifyListeners();

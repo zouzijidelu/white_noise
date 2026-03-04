@@ -7,9 +7,13 @@ class AudioService {
     _player.onPlayerComplete.listen((_) {
       _currentUrl = null;
     });
+    final mixContext = AudioContext(
+      android: AudioContextAndroid(audioFocus: AndroidAudioFocus.none),
+    );
     for (var i = 0; i < _maxMix; i++) {
       final p = AudioPlayer();
       p.setReleaseMode(ReleaseMode.loop);
+      p.setAudioContext(mixContext);
       _mixPlayers.add(p);
     }
   }
@@ -56,7 +60,8 @@ class AudioService {
   }
 
   /// 设置音量 0.0 ~ 1.0
-  Future<void> setVolume(double volume) => _player.setVolume(volume.clamp(0.0, 1.0));
+  Future<void> setVolume(double volume) =>
+      _player.setVolume(volume.clamp(0.0, 1.0));
 
   // --------------- 混音（最多 3 路，供 DIY 页） ---------------
 
@@ -73,7 +78,10 @@ class AudioService {
   }
 
   /// 从本地文件路径混音播放（缓存后的音频）
-  Future<void> startMixFromFiles(List<String> localPaths, List<double> volumes) async {
+  Future<void> startMixFromFiles(
+    List<String> localPaths,
+    List<double> volumes,
+  ) async {
     await stopMix();
     final count = localPaths.length.clamp(0, _maxMix);
     for (var i = 0; i < count; i++) {

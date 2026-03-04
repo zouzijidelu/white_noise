@@ -69,12 +69,20 @@ class _SleepScreenState extends State<SleepScreen> {
 }
 
 class _TimerSection extends StatelessWidget {
+  static String _formatRemaining(int totalSeconds) {
+    final m = totalSeconds ~/ 60;
+    final s = totalSeconds % 60;
+    return '${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<SleepProvider>(
       builder: (_, sleep, __) {
-        final minutes = sleep.timerMinutes;
-        final display = '${minutes.toString().padLeft(2, '0')}:00';
+        // 倒计时进行中显示剩余时间，否则显示设定的时长
+        final display = sleep.remainingSeconds > 0
+            ? _formatRemaining(sleep.remainingSeconds)
+            : '${sleep.timerMinutes.toString().padLeft(2, '0')}:00';
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
