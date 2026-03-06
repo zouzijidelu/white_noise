@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import '../providers/merit_provider.dart';
 
@@ -19,12 +20,14 @@ class _WoodenFishScreenState extends State<WoodenFishScreen>
   late AnimationController _scaleController;
   late Animation<double> _scaleAnimation;
   bool _isAnimating = false;
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  bool _audioLoaded = false;
 
   @override
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 800),
       vsync: this,
     );
 
@@ -65,16 +68,34 @@ class _WoodenFishScreenState extends State<WoodenFishScreen>
       parent: _scaleController,
       curve: Curves.easeInOut,
     ));
+    
+    _audioPlayer.setReleaseMode(ReleaseMode.stop);
+    _preloadAudio();
+  }
+
+  Future<void> _preloadAudio() async {
+    try {
+      await _audioPlayer.play(AssetSource('audio/wooden_fish.mp3'));
+      await Future.delayed(const Duration(milliseconds: 100));
+      await _audioPlayer.pause();
+      await _audioPlayer.seek(Duration.zero);
+      setState(() {
+        _audioLoaded = true;
+      });
+    } catch (e) {
+      debugPrint('预加载音频失败：$e');
+    }
   }
 
   @override
   void dispose() {
     _animationController.dispose();
     _scaleController.dispose();
+    _audioPlayer.dispose();
     super.dispose();
   }
 
-  void _handleTap(MeritProvider merit) {
+  void _handleTap(MeritProvider merit) async {
     if (_isAnimating) return;
     
     setState(() {
@@ -87,6 +108,13 @@ class _WoodenFishScreenState extends State<WoodenFishScreen>
     
     merit.increment();
     _animationController.forward();
+    
+    try {
+      await _audioPlayer.stop();
+      await _audioPlayer.play(AssetSource('audio/wooden_fish.mp3'));
+    } catch (e) {
+      debugPrint('播放木鱼音频失败：$e');
+    }
   }
 
   @override
@@ -130,7 +158,7 @@ class _WoodenFishScreenState extends State<WoodenFishScreen>
                                   ),
                             ),
                             const SizedBox(height: 8),
-                            Text('累积功德: ${merit.totalCount}'),
+                            Text('累积功德：${merit.totalCount}'),
                           ],
                         );
                       },
@@ -139,11 +167,11 @@ class _WoodenFishScreenState extends State<WoodenFishScreen>
                     Consumer<MeritProvider>(
                       builder: (_, merit, __) {
                         return GestureDetector(
-                          onTap: _isAnimating ? null : () => _handleTap(merit),
+                          onTap: (!_isAnimating && _audioLoaded) ? () => _handleTap(merit) : null,
                           child: ScaleTransition(
                             scale: _scaleAnimation,
                             child: Opacity(
-                              opacity: 1.0,
+                              opacity: _audioLoaded ? 1.0 : 0.5,
                               child: Image.asset(
                                 'assets/images/muyu_big.png',
                                 width: 120,
@@ -166,7 +194,7 @@ class _WoodenFishScreenState extends State<WoodenFishScreen>
                   child: FadeTransition(
                     opacity: _opacityAnimation,
                     child: Text(
-                      '功德+1',
+                      '功德 +1',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,

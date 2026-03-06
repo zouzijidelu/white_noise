@@ -60,6 +60,7 @@ flutter:
 
   assets:
     - assets/audio/
+    - assets/audio/wooden_fish.mp3
     - assets/images/
     - assets/images/muyu_big.png
     - assets/images/muyu_icon.png

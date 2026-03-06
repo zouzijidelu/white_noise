@@ -8,6 +8,7 @@ class AssetsRes {
 
   static const String PROJECT_NAME = 'white_noise';
   static const String PROJECT_VERSION = '1.0.0+1';
+  static const String WOODEN_FISH = 'assets/audio/wooden_fish.mp3';
   static const String MUYU_BIG = 'assets/images/muyu_big.png';
   static const String MUYU_ICON = 'assets/images/muyu_icon.png';
 }
