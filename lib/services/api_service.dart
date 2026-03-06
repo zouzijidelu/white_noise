@@ -7,7 +7,9 @@ import '../constants/api_constants.dart';
 
 bool _isHostLookupError(Object e) {
   final msg = e.toString().toLowerCase();
-  return msg.contains('host lookup') || msg.contains('nodename') || msg.contains('servname');
+  return msg.contains('host lookup') ||
+      msg.contains('nodename') ||
+      msg.contains('servname');
 }
 
 /// 将网络相关异常转为用户可读的提示文案
@@ -18,7 +20,11 @@ String networkErrorMessage(Object e, [String fallback = '请求失败，请重�
     return e.message ?? fallback;
   }
   final msg = e.toString().toLowerCase();
-  if (msg.contains('socket') || msg.contains('host lookup') || msg.contains('nodename') || msg.contains('servname') || msg.contains('connection')) {
+  if (msg.contains('socket') ||
+      msg.contains('host lookup') ||
+      msg.contains('nodename') ||
+      msg.contains('servname') ||
+      msg.contains('connection')) {
     return '网络异常，请检查网络连接后重试';
   }
   if (msg.contains('timeout') || msg.contains('timed out')) return '连接超时，请重试';
@@ -27,11 +33,7 @@ String networkErrorMessage(Object e, [String fallback = '请求失败，请重�
 
 /// 接口统一响应结构：code、msg、data
 class ApiResponse<T> {
-  const ApiResponse({
-    required this.code,
-    required this.msg,
-    this.data,
-  });
+  const ApiResponse({required this.code, required this.msg, this.data});
 
   factory ApiResponse.fromJson(
     Map<String, dynamic> json,
@@ -55,21 +57,26 @@ class ApiResponse<T> {
 
 /// 网络请求工具类：基于 Base URL 的 GET 请求
 class ApiService {
-  ApiService({
-    String baseUrl = ApiConstants.baseUrl,
-    http.Client? client,
-  })  : _baseUrl = baseUrl.endsWith('/') ? baseUrl : '$baseUrl/',
-        _client = client ?? http.Client();
+  ApiService({String baseUrl = ApiConstants.baseUrl, http.Client? client})
+    : _baseUrl = baseUrl.endsWith('/') ? baseUrl : '$baseUrl/',
+      _client = client ?? http.Client();
 
   final String _baseUrl;
   final http.Client _client;
 
   String _buildUrl(String path, [Map<String, String>? queryParameters]) {
-    final base = _baseUrl.endsWith('/') ? _baseUrl.substring(0, _baseUrl.length - 1) : _baseUrl;
+    final base = _baseUrl.endsWith('/')
+        ? _baseUrl.substring(0, _baseUrl.length - 1)
+        : _baseUrl;
     final pathStr = path.startsWith('/') ? path : '/$path';
     var url = '$base$pathStr';
     if (queryParameters != null && queryParameters.isNotEmpty) {
-      final query = queryParameters.entries.map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
+      final query = queryParameters.entries
+          .map(
+            (e) =>
+                '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+          )
+          .join('&');
       url = '$url?$query';
     }
     return url;
@@ -82,11 +89,19 @@ class ApiService {
     Map<String, String>? headers,
   }) async {
     try {
-      return await _getRawOnce(path, queryParameters: queryParameters, headers: headers);
+      return await _getRawOnce(
+        path,
+        queryParameters: queryParameters,
+        headers: headers,
+      );
     } catch (e) {
       if (Platform.isIOS && _isHostLookupError(e)) {
         await Future<void>.delayed(const Duration(milliseconds: 400));
-        return await _getRawOnce(path, queryParameters: queryParameters, headers: headers);
+        return await _getRawOnce(
+          path,
+          queryParameters: queryParameters,
+          headers: headers,
+        );
       }
       rethrow;
     }
@@ -123,7 +138,11 @@ class ApiService {
     Map<String, String>? headers,
     T Function(dynamic)? fromJsonT,
   }) async {
-    final json = await getRaw(path, queryParameters: queryParameters, headers: headers);
+    final json = await getRaw(
+      path,
+      queryParameters: queryParameters,
+      headers: headers,
+    );
     return ApiResponse.fromJson(json, fromJsonT);
   }
 
@@ -169,16 +188,13 @@ class ApiService {
 
 /// 请求异常
 class ApiException implements Exception {
-  ApiException({
-    this.statusCode,
-    this.message,
-    this.body,
-  });
+  ApiException({this.statusCode, this.message, this.body});
 
   final int? statusCode;
   final String? message;
   final String? body;
 
   @override
-  String toString() => 'ApiException: $message (statusCode: $statusCode, body: $body)';
+  String toString() =>
+      'ApiException: $message (statusCode: $statusCode, body: $body)';
 }

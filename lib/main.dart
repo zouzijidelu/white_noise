@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:white_noise/providers/meditation_provider.dart';
 
@@ -8,16 +9,40 @@ import 'providers/navigation_provider.dart';
 import 'providers/sleep_provider.dart';
 import 'routes/app_route_information_parser.dart';
 import 'routes/app_router_delegate.dart';
+import 'package:audio_service/audio_service.dart' as audio_svc;
+
 import 'services/api_service.dart';
 import 'services/audio_cache_service.dart';
+import 'services/audio_handler.dart';
 import 'services/audio_service.dart';
 import 'services/storage_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 全屏显示，包括状态栏（边缘到边缘）
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ),
+  );
+
   final storage = await StorageService.getInstance();
   final apiService = ApiService();
   final audioService = AudioService();
+  final audioHandler = await audio_svc.AudioService.init(
+    builder: () => WhiteNoiseAudioHandler(audioService),
+    config: const audio_svc.AudioServiceConfig(
+      androidNotificationChannelId: 'com.example.white_noise.channel.audio',
+      androidNotificationChannelName: '音频播放',
+      androidNotificationOngoing: true,
+    ),
+  );
+  audioService.setNotificationHandler(audioHandler);
   final audioCacheService = AudioCacheService();
   final navigationProvider = NavigationProvider();
   final meritProvider = MeritProvider(storage: storage);
@@ -36,20 +61,24 @@ void main() async {
     audioService: audioService,
   );
 
-  final routerDelegate = AppRouterDelegate(navigationProvider: navigationProvider);
+  final routerDelegate = AppRouterDelegate(
+    navigationProvider: navigationProvider,
+  );
   final routeInformationParser = AppRouteInformationParser();
 
-  runApp(WhiteNoiseApp(
-    routerDelegate: routerDelegate,
-    routeInformationParser: routeInformationParser,
-    navigationProvider: navigationProvider,
-    meritProvider: meritProvider,
-    sleepProvider: sleepProvider,
-    diyProvider: diyProvider,
-    meditationProvider: meditationProvider,
-    apiService: apiService,
-    audioService: audioService,
-  ));
+  runApp(
+    WhiteNoiseApp(
+      routerDelegate: routerDelegate,
+      routeInformationParser: routeInformationParser,
+      navigationProvider: navigationProvider,
+      meritProvider: meritProvider,
+      sleepProvider: sleepProvider,
+      diyProvider: diyProvider,
+      meditationProvider: meditationProvider,
+      apiService: apiService,
+      audioService: audioService,
+    ),
+  );
 }
 
 class WhiteNoiseApp extends StatelessWidget {
@@ -80,11 +109,15 @@ class WhiteNoiseApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<NavigationProvider>.value(value: navigationProvider),
+        ChangeNotifierProvider<NavigationProvider>.value(
+          value: navigationProvider,
+        ),
         ChangeNotifierProvider<MeritProvider>.value(value: meritProvider),
         ChangeNotifierProvider<SleepProvider>.value(value: sleepProvider),
         ChangeNotifierProvider<DiyProvider>.value(value: diyProvider),
-        ChangeNotifierProvider<MeditationProvider>.value(value: meditationProvider),
+        ChangeNotifierProvider<MeditationProvider>.value(
+          value: meditationProvider,
+        ),
         Provider<ApiService>.value(value: apiService),
         Provider<AudioService>.value(value: audioService),
       ],

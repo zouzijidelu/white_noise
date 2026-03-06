@@ -172,7 +172,8 @@ class SleepProvider extends ChangeNotifier {
       _loadingAudioId = null;
       notifyListeners();
     }
-    await _audio.playFile(localPath);
+    final title = audio['title'] as String? ?? '环境音';
+    await _audio.playFile(localPath, title: title);
     _playingAudioId = id;
     notifyListeners();
   }

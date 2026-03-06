@@ -235,7 +235,7 @@ class MeditationProvider extends ChangeNotifier {
         await resume();
       } else {
         // 否则从头播放
-        await _audio.play(url, isAsset: false);
+        await _audio.play(url, isAsset: false, title: _selectedCourse!.title);
         _isPlaying = true;
         _playingCourseId = _selectedCourse!.id;
       }

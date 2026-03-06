@@ -37,7 +37,8 @@ class _DiyScreenState extends State<DiyScreen> {
                     Center(
                       child: Text(
                         'DIY白噪音',
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.black87,
                             ),
@@ -47,9 +48,9 @@ class _DiyScreenState extends State<DiyScreen> {
                     Center(
                       child: Text(
                         '选择多个音频，更改音频中间的音量键可配置自己的组合音效',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Colors.black54,
-                            ),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.copyWith(color: Colors.black54),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -57,9 +58,9 @@ class _DiyScreenState extends State<DiyScreen> {
                     Consumer<DiyProvider>(
                       builder: (_, diy, __) => Text(
                         '小${diy.currentAudiosCount} 音效',
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              color: Colors.black87,
-                            ),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.labelLarge?.copyWith(color: Colors.black87),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -228,15 +229,19 @@ class _CategoryHeader extends StatelessWidget {
                 color: Colors.black87,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Icon(Icons.graphic_eq, color: Colors.white, size: 24),
+              child: const Icon(
+                Icons.graphic_eq,
+                color: Colors.white,
+                size: 24,
+              ),
             ),
             const SizedBox(width: 12),
             Text(
               title,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
+                fontWeight: FontWeight.w600,
+                color: Colors.black87,
+              ),
             ),
           ],
         );
@@ -266,7 +271,10 @@ class _CategoryStrip extends StatelessWidget {
               return GestureDetector(
                 onTap: () => id != null ? diy.selectCategory(id) : null,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: selected ? Colors.black12 : Colors.transparent,
                     borderRadius: BorderRadius.circular(18),
@@ -276,7 +284,9 @@ class _CategoryStrip extends StatelessWidget {
                     title,
                     style: TextStyle(
                       fontSize: 14,
-                      fontWeight: selected ? FontWeight.w600 : FontWeight.normal,
+                      fontWeight: selected
+                          ? FontWeight.w600
+                          : FontWeight.normal,
                       color: Colors.black87,
                     ),
                   ),
@@ -301,9 +311,9 @@ class _PlayView extends StatelessWidget {
             child: Center(
               child: Text(
                 '请先在「分类」中选择最多 3 个音效',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.black54,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: Colors.black54),
               ),
             ),
           );
@@ -350,16 +360,24 @@ class _PlayView extends StatelessWidget {
                       ? const SizedBox(
                           width: 20,
                           height: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
                         )
                       : Icon(diy.isPlayingMix ? Icons.stop : Icons.play_arrow),
                   label: Text(
-                    diy.preparingMix ? '加载中…' : (diy.isPlayingMix ? '停止' : '播放混音'),
+                    diy.preparingMix
+                        ? '加载中…'
+                        : (diy.isPlayingMix ? '停止' : '播放混音'),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black87,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 14,
+                    ),
                   ),
                 ),
               ),
@@ -393,7 +411,9 @@ class _DiySoundGrid extends StatelessWidget {
                 children: [
                   Text(
                     diy.error!,
-                    style: TextStyle(color: Theme.of(context).colorScheme.error),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   TextButton(
@@ -419,31 +439,29 @@ class _DiySoundGrid extends StatelessWidget {
           sliver: SliverGrid(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childAspectRatio: 0.72,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 1,
             ),
-            delegate: SliverChildBuilderDelegate(
-              (_, i) {
-                final audio = audios[i];
-                final id = audio['id'] as int?;
-                final title = audio['title'] as String? ?? '';
-                final selected = id != null && diy.isSelected(id);
-                return _DiySoundTile(
-                  title: title,
-                  selected: selected,
-                  volume: id != null ? diy.getVolumeFor(id) : 0.5,
-                  onTap: () {
-                    final ok = diy.toggleSelection(audio);
+            delegate: SliverChildBuilderDelegate((_, i) {
+              final audio = audios[i];
+              final id = audio['id'] as int?;
+              final title = audio['title'] as String? ?? '';
+              final selected = id != null && diy.isSelected(id);
+              return _DiySoundTile(
+                title: title,
+                selected: selected,
+                volume: id != null ? diy.getVolumeFor(id) : 0.5,
+                onTap: () {
+                  diy.toggleSelection(audio).then((ok) {
                     if (!ok) onSelectFourth();
-                  },
-                  onVolumeChanged: id != null
-                      ? (v) => diy.setVolume(id, v)
-                      : null,
-                );
-              },
-              childCount: audios.length,
-            ),
+                  });
+                },
+                onVolumeChanged: id != null
+                    ? (v) => diy.setVolume(id, v)
+                    : null,
+              );
+            }, childCount: audios.length),
           ),
         );
       },
@@ -471,63 +489,81 @@ class _DiySoundTile extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        GestureDetector(
-          onTap: onTap,
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: selected ? Colors.black : Colors.transparent,
-                width: 2.5,
-              ),
+        Container(
+          decoration: BoxDecoration(
+            // color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: selected ? Colors.black : Colors.grey[300]!,
+              width: selected ? 1.5 : 1.0,
             ),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Center(
-                child: Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: Colors.black87,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: const Icon(
-                    Icons.graphic_eq,
-                    color: Colors.white,
-                    size: 24,
-                  ),
+          ),
+          // color: Colors.grey.shade200,
+          child: GestureDetector(
+            onTap: onTap,
+            child: Container(
+              width: double.infinity,
+
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 38,
+                        height: 38,
+                        decoration: BoxDecoration(
+                          color: Colors.black87,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: const Icon(
+                          Icons.graphic_eq,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          trackHeight: 1,
+                          thumbShape: const RoundSliderThumbShape(
+                            enabledThumbRadius: 4,
+                          ),
+                          overlayShape: const RoundSliderOverlayShape(
+                            overlayRadius: 8,
+                          ),
+                        ),
+                        child: Slider(
+                          value: volume,
+                          onChanged: onVolumeChanged != null
+                              ? (v) => onVolumeChanged!(v)
+                              : null,
+                          activeColor: Colors.black87,
+                          inactiveColor: Colors.grey.shade300,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      title,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Colors.black87,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        ),
-        const SizedBox(height: 8),
-        SliderTheme(
-          data: SliderTheme.of(context).copyWith(
-            trackHeight: 2,
-            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
-            overlayShape: const RoundSliderOverlayShape(overlayRadius: 12),
-          ),
-          child: Slider(
-            value: volume,
-            onChanged: onVolumeChanged != null
-                ? (v) => onVolumeChanged!(v)
-                : null,
-            activeColor: Colors.black87,
-            inactiveColor: Colors.grey.shade300,
-          ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          title,
-          maxLines: 2,
-          textAlign: TextAlign.center,
-          overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.black87,
-              ),
         ),
       ],
     );

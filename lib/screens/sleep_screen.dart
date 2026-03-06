@@ -37,7 +37,8 @@ class _SleepScreenState extends State<SleepScreen> {
                     Center(
                       child: Text(
                         '定时睡眠',
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.black87,
                             ),
@@ -47,9 +48,9 @@ class _SleepScreenState extends State<SleepScreen> {
                     Center(
                       child: Text(
                         '环境音播放会在倒计时结束后自动停止',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Colors.black54,
-                            ),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.copyWith(color: Colors.black54),
                       ),
                     ),
                     const SizedBox(height: 24),
@@ -95,9 +96,9 @@ class _TimerSection extends StatelessWidget {
               child: Text(
                 display,
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
               ),
             ),
           ],
@@ -118,13 +119,15 @@ class _TimerSection extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Text('选择定时时长', style: Theme.of(ctx).textTheme.titleMedium),
             ),
-            ...options.map((m) => ListTile(
-                  title: Text('$m 分钟'),
-                  onTap: () {
-                    sleep.setTimerMinutes(m);
-                    Navigator.pop(ctx);
-                  },
-                )),
+            ...options.map(
+              (m) => ListTile(
+                title: Text('$m 分钟'),
+                onTap: () {
+                  sleep.setTimerMinutes(m);
+                  Navigator.pop(ctx);
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -161,7 +164,9 @@ class _CategoryBar extends StatelessWidget {
                       title,
                       style: TextStyle(
                         fontSize: 15,
-                        fontWeight: selected ? FontWeight.w600 : FontWeight.normal,
+                        fontWeight: selected
+                            ? FontWeight.w600
+                            : FontWeight.normal,
                         color: selected ? Colors.black87 : Colors.black54,
                       ),
                     ),
@@ -170,7 +175,9 @@ class _CategoryBar extends StatelessWidget {
                       height: 3,
                       width: 24,
                       decoration: BoxDecoration(
-                        color: selected ? Theme.of(context).colorScheme.primary : Colors.transparent,
+                        color: selected
+                            ? Theme.of(context).colorScheme.primary
+                            : Colors.transparent,
                         borderRadius: BorderRadius.circular(2),
                       ),
                     ),
@@ -201,7 +208,12 @@ class _SoundGrid extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(sleep.error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+                  Text(
+                    sleep.error!,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                  ),
                   const SizedBox(height: 12),
                   TextButton(
                     onPressed: () => sleep.loadData(),
@@ -228,23 +240,20 @@ class _SoundGrid extends StatelessWidget {
               crossAxisCount: 4,
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
-              childAspectRatio: 0.85,
+              childAspectRatio: 0.78,
             ),
-            delegate: SliverChildBuilderDelegate(
-              (_, i) {
-                final audio = audios[i];
-                final id = audio['id'] as int?;
-                final title = audio['title'] as String? ?? '';
-                final isPlaying = sleep.playingAudioId == id;
-                return _SoundItem(
-                  title: title,
-                  isPlaying: isPlaying,
-                  isLoading: sleep.loadingAudioId == id,
-                  onTap: () => sleep.toggleAudio(audio),
-                );
-              },
-              childCount: audios.length,
-            ),
+            delegate: SliverChildBuilderDelegate((_, i) {
+              final audio = audios[i];
+              final id = audio['id'] as int?;
+              final title = audio['title'] as String? ?? '';
+              final isPlaying = sleep.playingAudioId == id;
+              return _SoundItem(
+                title: title,
+                isPlaying: isPlaying,
+                isLoading: sleep.loadingAudioId == id,
+                onTap: () => sleep.toggleAudio(audio),
+              );
+            }, childCount: audios.length),
           ),
         );
       },
@@ -267,58 +276,71 @@ class _SoundItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: isLoading ? null : onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: isPlaying
-                        ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.15)
-                        : Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Center(
-                    child: _PlaceholderIcon(
-                      size: 36,
-                      accent: isPlaying ? Theme.of(context).colorScheme.primary : null,
-                    ),
-                  ),
-                ),
-                if (isLoading)
+    return Container(
+      // decoration: !isPlaying
+      //     ? null
+      //     : BoxDecoration(
+      //         border: Border.all(width: 1, color: Colors.black),
+      //         borderRadius: BorderRadius.circular(8),
+      //       ),
+      child: GestureDetector(
+        onTap: isLoading ? null : onTap,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            // 固定高度，保证所有网格项的 _PlaceholderIcon 顶部对齐
+            SizedBox(
+              height: 52,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
                   Container(
+                    width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.black26,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Center(
-                      child: SizedBox(
-                        width: 28,
-                        height: 28,
-                        child: CircularProgressIndicator(strokeWidth: 2),
+                    child: Center(
+                      child: _PlaceholderIcon(
+                        size: 36,
+                        accent: isPlaying
+                            ? Theme.of(context).colorScheme.primary
+                            : null,
                       ),
                     ),
                   ),
-              ],
+                  if (isLoading)
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Center(
+                        child: SizedBox(
+                          width: 28,
+                          height: 28,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            title,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Colors.black87,
-                ),
-          ),
-        ],
+            const SizedBox(height: 6),
+            // 多行文本占用下方剩余空间
+            Expanded(
+              child: Text(
+                title,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: Colors.black87),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -341,11 +363,7 @@ class _PlaceholderIcon extends StatelessWidget {
         color: color,
         borderRadius: BorderRadius.circular(6),
       ),
-      child: Icon(
-        Icons.graphic_eq,
-        size: size * 0.5,
-        color: Colors.white,
-      ),
+      child: Icon(Icons.graphic_eq, size: size * 0.5, color: Colors.white),
     );
   }
 }
