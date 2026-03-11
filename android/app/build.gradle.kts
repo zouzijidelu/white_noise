@@ -30,11 +30,25 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        create("config") {
+            storeFile = file("../certificate/white_noise.jks")
+            storePassword = "7654321o"
+            keyAlias = "white_noise"
+            keyPassword = "7654321o"
+        }
+    }
+
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("config")
+        }
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("config")
         }
     }
 }
