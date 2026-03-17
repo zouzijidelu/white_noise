@@ -2,8 +2,11 @@
 class ApiConstants {
   ApiConstants._();
 
-  /// 所有网络请求的 Base URL
+  /// 主 Base URL（域名）
   static const String baseUrl = 'https://audio.3dmaxmo.com/index.php';
+  // static const String baseUrl = 'http://39.100.67.20/index.php';
+  /// 备用 Base URL（IP，用于域名 DNS 失败时回退）
+  static const String fallbackBaseUrl = 'http://39.100.67.20/index.php';
 
   /// 分类列表（仅分类）
   static const String cateList = '/jty/index/cateList';

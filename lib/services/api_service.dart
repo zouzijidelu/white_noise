@@ -5,13 +5,6 @@ import 'package:http/http.dart' as http;
 
 import '../constants/api_constants.dart';
 
-bool _isHostLookupError(Object e) {
-  final msg = e.toString().toLowerCase();
-  return msg.contains('host lookup') ||
-      msg.contains('nodename') ||
-      msg.contains('servname');
-}
-
 /// 将网络相关异常转为用户可读的提示文案
 String networkErrorMessage(Object e, [String fallback = '请求失败，请重试']) {
   if (e is ApiException) {
@@ -24,7 +17,9 @@ String networkErrorMessage(Object e, [String fallback = '请求失败，请重�
       msg.contains('host lookup') ||
       msg.contains('nodename') ||
       msg.contains('servname') ||
-      msg.contains('connection')) {
+      msg.contains('connection') ||
+      msg.contains('offline') ||
+      msg.contains('-1009')) {
     return '网络异常，请检查网络连接后重试';
   }
   if (msg.contains('timeout') || msg.contains('timed out')) return '连接超时，请重试';
@@ -55,21 +50,30 @@ class ApiResponse<T> {
   bool get isSuccess => code == 1;
 }
 
+bool _isNetworkError(Object e) {
+  final msg = e.toString().toLowerCase();
+  return msg.contains('host lookup') ||
+      msg.contains('nodename') ||
+      msg.contains('servname') ||
+      msg.contains('offline') ||
+      msg.contains('-1009') ||
+      msg.contains('socket') ||
+      msg.contains('connection');
+}
+
 /// 网络请求工具类：基于 Base URL 的 GET 请求
 class ApiService {
   ApiService({String baseUrl = ApiConstants.baseUrl, http.Client? client})
-    : _baseUrl = baseUrl.endsWith('/') ? baseUrl : '$baseUrl/',
+    : _baseUrl = baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl,
       _client = client ?? http.Client();
 
   final String _baseUrl;
   final http.Client _client;
 
-  String _buildUrl(String path, [Map<String, String>? queryParameters]) {
-    final base = _baseUrl.endsWith('/')
-        ? _baseUrl.substring(0, _baseUrl.length - 1)
-        : _baseUrl;
+  String _buildUrl(String base, String path, [Map<String, String>? queryParameters]) {
+    final b = base.endsWith('/') ? base.substring(0, base.length - 1) : base;
     final pathStr = path.startsWith('/') ? path : '/$path';
-    var url = '$base$pathStr';
+    var url = '$b$pathStr';
     if (queryParameters != null && queryParameters.isNotEmpty) {
       final query = queryParameters.entries
           .map(
@@ -82,37 +86,35 @@ class ApiService {
     return url;
   }
 
-  /// 通用 GET 请求，返回原始 JSON Map（iOS 遇 host lookup 时自动重试一次）
+  /// 通用 GET 请求，返回原始 JSON Map
+  /// 域名失败时自动回退到 IP（与测试项目一致，绕过 DNS）
   Future<Map<String, dynamic>> getRaw(
     String path, {
     Map<String, String>? queryParameters,
     Map<String, String>? headers,
   }) async {
     try {
-      return await _getRawOnce(
-        path,
-        queryParameters: queryParameters,
-        headers: headers,
-      );
+      return await _getRawOnce(_baseUrl, path,
+          queryParameters: queryParameters, headers: headers);
     } catch (e) {
-      if (Platform.isIOS && _isHostLookupError(e)) {
-        await Future<void>.delayed(const Duration(milliseconds: 400));
-        return await _getRawOnce(
-          path,
-          queryParameters: queryParameters,
-          headers: headers,
-        );
+      if (Platform.isIOS &&
+          _isNetworkError(e) &&
+          _baseUrl.contains('audio.3dmaxmo.com')) {
+        await Future<void>.delayed(const Duration(seconds: 2));
+        return await _getRawOnce(ApiConstants.fallbackBaseUrl, path,
+            queryParameters: queryParameters, headers: headers);
       }
       rethrow;
     }
   }
 
   Future<Map<String, dynamic>> _getRawOnce(
+    String base,
     String path, {
     Map<String, String>? queryParameters,
     Map<String, String>? headers,
   }) async {
-    final url = _buildUrl(path, queryParameters);
+    final url = _buildUrl(base, path, queryParameters);
     final response = await _client.get(
       Uri.parse(url),
       headers: {'Accept': 'application/json', ...?headers},

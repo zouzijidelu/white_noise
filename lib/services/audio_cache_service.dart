@@ -64,7 +64,10 @@ class AudioCacheService {
 
     final response = await http.get(Uri.parse(url));
     if (response.statusCode != 200) {
-      throw AudioCacheException('HTTP ${response.statusCode}', response.statusCode);
+      throw AudioCacheException(
+        'HTTP ${response.statusCode}',
+        response.statusCode,
+      );
     }
     await file.writeAsBytes(response.bodyBytes);
     return file.path;
