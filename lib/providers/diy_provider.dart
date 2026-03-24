@@ -19,6 +19,7 @@ class SelectedDiyAudio {
   final String title;
   final String audioFile;
   double volume;
+
   /// 混音槽位 0~2，用于单路启动/停止
   int slotIndex;
 
@@ -31,9 +32,9 @@ class DiyProvider extends ChangeNotifier {
     required ApiService apiService,
     required AudioService audioService,
     required AudioCacheService audioCacheService,
-  })  : _api = apiService,
-        _audio = audioService,
-        _cache = audioCacheService;
+  }) : _api = apiService,
+       _audio = audioService,
+       _cache = audioCacheService;
 
   final ApiService _api;
   final AudioService _audio;
@@ -48,7 +49,8 @@ class DiyProvider extends ChangeNotifier {
   int? get selectedCateId => _selectedCateId;
 
   final List<SelectedDiyAudio> _selectedAudios = [];
-  List<SelectedDiyAudio> get selectedAudios => List.unmodifiable(_selectedAudios);
+  List<SelectedDiyAudio> get selectedAudios =>
+      List.unmodifiable(_selectedAudios);
 
   bool _isPlayingMix = false;
   bool get isPlayingMix => _isPlayingMix;
@@ -88,7 +90,8 @@ class DiyProvider extends ChangeNotifier {
   double getVolumeFor(int audioId) {
     final found = _selectedAudios.firstWhere(
       (a) => a.id == audioId,
-      orElse: () => SelectedDiyAudio(id: -1, title: '', audioFile: '', slotIndex: 0),
+      orElse: () =>
+          SelectedDiyAudio(id: -1, title: '', audioFile: '', slotIndex: 0),
     );
     return found.id >= 0 ? found.volume : 0.5;
   }

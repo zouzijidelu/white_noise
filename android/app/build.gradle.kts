@@ -43,7 +43,8 @@ android {
         debug {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("config")
+            // Debug 使用默认签名，便于开发调试
+            signingConfig = signingConfigs.getByName("debug")
         }
         release {
             isMinifyEnabled = true
